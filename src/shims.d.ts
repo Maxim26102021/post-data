@@ -1,5 +1,4 @@
 declare module '*.vue' {
-  import Vue from 'vue';
   import { defineComponent } from 'vue';
 
   const component: ReturnType<typeof defineComponent>;
@@ -8,6 +7,10 @@ declare module '*.vue' {
 
 declare module "*.jpg" {}
 declare module "*.ts" {}
+declare module "*.js" {
+  export function applyMask (): void
+  export function openPopup (): any
+}
 declare module "*.svg" {}
 declare module "*.gif" {}
 declare module "*.json" {
