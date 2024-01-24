@@ -48,25 +48,12 @@ const addMask = () => {
   //@ts-ignore
   let val = formFields.value.phone;
   //@ts-ignore
-
   val = val.toString();
-
-  console.log(val);
-  
-  
-
-  
-  // val = val.toString();
   //@ts-ignore
   let x = val.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
   //@ts-ignore
-  console.log(x[1]);
-
-  //@ts-ignore
   let newVal = !x[2] ? x[1] : '+7 (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
-  console.log(newVal);
-  
-  
+
   formFields.value.phone = newVal
 }
 
