@@ -33,7 +33,7 @@ const actions = {
 }
 
 const getters = {
-  getSelected(state: any) {
+  getCurrentSelect(state: any) {
     return state.selectedCity;
   },
 
