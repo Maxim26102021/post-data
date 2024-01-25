@@ -1,6 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/HomeView.vue'
-
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '@/views/HomeView.vue';
 
 const options = {
   history: createWebHistory(),
@@ -8,9 +7,9 @@ const options = {
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
-  ]
-}
+  ],
+};
 
 export const router = createRouter(options);

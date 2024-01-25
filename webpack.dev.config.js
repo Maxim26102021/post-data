@@ -3,7 +3,6 @@ const {
     VueLoaderPlugin
 } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
@@ -75,7 +74,8 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     configFile: 'tsconfig.json',
-                    appendTsSuffixTo: [/\.vue$/]
+                    appendTsSuffixTo: [/\.vue$/],
+                    transpileOnly: true,
                 }
             },
         ]
@@ -89,8 +89,5 @@ module.exports = {
             filename: '[name].css'
         }),
         new VueLoaderPlugin(),
-        new Dotenv({
-            path: './.env.development'
-        })
     ]
 };

@@ -1,54 +1,65 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
+import { State, StateGetter } from '@/shared/types/store';
 
 const state = {
   selectedCity: '',
   btnSities: {
-    'Москва': 'Заказать в Москву',
-    'Санкт-Петербург': 'Заказать в Санкт-Петербург'
+    Москва: 'Заказать в Москву',
+    'Санкт-Петербург': 'Заказать в Санкт-Петербург',
   },
-  cities: [{
-    id: 1,
-    name: "Москва"
-  },
-  {
-    id: 2,
-    name: "Санкт-Петербург"
-  },
-  {
-    id: 3,
-    name: "Казань"
-  }]
-}
+  cities: [
+    {
+      id: 1,
+      name: 'Москва',
+    },
+    {
+      id: 2,
+      name: 'Санкт-Петербург',
+    },
+    {
+      id: 3,
+      name: 'Казань',
+    },
+  ],
+  htmlBlock: null,
+};
 
 const mutations = {
-  SET_SELECTED(state: any, payload: any) {
-    state.selectedCity = payload;
-  }
-}
+  SET_ITEM(state: any, payload: any) {
+    state[payload.key] = payload.value;
+  },
+};
 
-const actions = {
-  setSelected(context: any, index: any) {
-    context.commit('SET_SELECTED', index)
-  }
-}
-
-const getters = {
-  getCurrentSelect(state: any) {
+const getters: Record<string, StateGetter> = {
+  getCurrentSelect(state) {
     return state.selectedCity;
   },
 
-  getBtnCities(state: any) {
+  getBtnCities(state) {
     return state.btnSities;
   },
 
-  getCities(state: any) {
+  getCities(state) {
     return state.cities;
-  }
-}
+  },
 
-export default createStore({
+  getResponse(state) {
+    return state.htmlBlock;
+  },
+
+  getIdByName: state => (city: string) => {
+    let result = null;
+
+    state.cities.forEach(element => {
+      if (element.name === city) result = element.id;
+    });
+
+    return result;
+  },
+};
+
+export default createStore<State>({
   state,
   mutations,
-  actions,
-  getters
-})
+  getters,
+});
