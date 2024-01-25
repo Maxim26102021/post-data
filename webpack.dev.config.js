@@ -3,7 +3,6 @@ const {
     VueLoaderPlugin
 } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
@@ -33,10 +32,20 @@ module.exports = {
     },
     devtool: 'source-map',
     module: {
-        rules: [{
-                test: /\.css$/i,
-                use: [`style-loader`, 'css-loader', 'postcss-loader'],
+        rules: [
+            {
+                test: /\.(css|scss|sass)$/i,
+                use: [`style-loader`, 'css-loader', 'sass-loader'],
                 exclude: /node_modules/,
+            },
+            {   
+                test: /\.css$/,
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        config: path.resolve(__dirname, "postcss.config.js"),
+                      },
+                }
             },
             {
                 test: /\.vue$/,
@@ -65,7 +74,8 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     configFile: 'tsconfig.json',
-                    appendTsSuffixTo: [/\.vue$/]
+                    appendTsSuffixTo: [/\.vue$/],
+                    transpileOnly: true,
                 }
             },
         ]
@@ -79,8 +89,5 @@ module.exports = {
             filename: '[name].css'
         }),
         new VueLoaderPlugin(),
-        new Dotenv({
-            path: './.env.development'
-        })
     ]
 };
