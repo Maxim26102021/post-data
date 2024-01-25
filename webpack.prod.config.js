@@ -5,7 +5,6 @@ const {
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     mode: 'production',
@@ -26,7 +25,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(css|scss|sass)$/i,
-                use: [`style-loader`, 'css-loader', 'sass-loader'],
+                use: [`style-loader`, MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
                 exclude: /node_modules/,
             },
             {   
@@ -77,16 +76,10 @@ module.exports = {
         ],
     },
     plugins: [
-        new CompressionPlugin({
-            test: /\.js(\?.*)?$/i,
-            algorithm: "gzip",
-            compressionOptions: {
-                level: 4
-            },
-        }),
         new HtmlWebpackPlugin({
             template: './public/index.html',
-            favicon: './public/favicon.ico'
+            favicon: './public/favicon.ico',
+            title: 'Тест'
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css'
